@@ -19,11 +19,23 @@ export class ContactComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
+    this.formComponent();
+    
+    this.listContacts();
+ 
+  }
+
+  listContacts() {
+    this.service.listContactsService().subscribe(response => {
+      this.contacts = response;
+    })
+  }
+
+  formComponent() {
     this.form = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]]
-    })
- 
+    });
   }
 
   submit() {
