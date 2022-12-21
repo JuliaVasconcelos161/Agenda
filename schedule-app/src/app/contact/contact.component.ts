@@ -19,13 +19,16 @@ export class ContactComponent implements OnInit{
   ngOnInit(): void {
     this.form = this.fb.group({
       name: ['', Validators.required],
-      email: ['', Validators.email]
+      email: ['', [Validators.required, Validators.email]]
     })
  
   }
 
   submit() {
-    console.log(this.form.value)
+    const errorRequiredName = this.form.controls['name'].errors?.['required'];
+    const errorInvalidEmail = this.form.controls['email'].errors?.['email'];
+    console.log('errorRequiredName: ', errorRequiredName);
+    console.log('errorInvalidEmail: ', errorInvalidEmail);
   //   this.service.saveContact(c).subscribe( response => {
   //     console.log(response);
   //   });
