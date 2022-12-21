@@ -3,9 +3,13 @@ package com.github.juliavasconcelos161.scheduleapi.api.rest;
 import com.github.juliavasconcelos161.scheduleapi.model.entity.Contact;
 import com.github.juliavasconcelos161.scheduleapi.model.repository.ContactRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Part;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,5 +50,24 @@ public class ContactController {
             c.setFavorite(!favorite);
             repository.save(c);
         });
+    }
+
+    @PutMapping("{id}/picture")
+    public byte[] addPicture(@PathVariable Integer id, @RequestParam ("picture") Part archive)
+    {
+        Optional<Contact> contact = repository.findById(id);
+        return contact.map( c -> {
+            try{
+                InputStream is = archive.getInputStream();
+                byte[] bytes = new byte[(int)archive.getSize()];
+                IOUtils.readFully(is, bytes);
+                c.setPicture(bytes);
+                repository.save(c);
+                is.close();
+                return bytes;
+            } catch(IOException e) {
+                return null;
+            }
+        }).orElseThrow(null);
     }
 }

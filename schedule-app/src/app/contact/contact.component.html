@@ -10,6 +10,13 @@
         </ng-template>
         <mat-card>
             <table mat-table [dataSource]='contacts'>
+                <ng-container matColumnDef="picture">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let contact">
+                        <input type="file" name="picture" (change)="uploadPicture($event, contact)">
+                    </td>
+                </ng-container>
+
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef>ID</th>
                     <td mat-cell *matCellDef="let contact">{{ contact.id }}</td>

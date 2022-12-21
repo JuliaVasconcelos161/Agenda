@@ -12,7 +12,7 @@ export class ContactComponent implements OnInit{
 
   form!: FormGroup;
   contacts: Contact[] = [];
-  columns = ['id', 'name', 'email', 'favorite']
+  columns = ['picture','id', 'name', 'email', 'favorite']
   constructor(
     private service: ContactService,
     private fb: FormBuilder
@@ -51,5 +51,17 @@ export class ContactComponent implements OnInit{
       let listContacts: Contact[] = [...this.contacts, response];
       this.contacts = listContacts;
     });
+  }
+
+  uploadPicture(event: any, contact: Contact) {
+    const files = event.target.files;
+    if(files) {
+      const picture = files[0];
+      const formData: FormData = new FormData();
+      formData.append("picture", picture);
+      this.service.uploadPictureService(contact, formData).subscribe(response => {
+        this.listContacts();
+      });
+    }
   }
 }
