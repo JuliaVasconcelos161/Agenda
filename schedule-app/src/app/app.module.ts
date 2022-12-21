@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar'; 
 import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +25,7 @@ import { ContactService } from './contact.service';
     MatToolbarModule,
     MatInputModule,
     HttpClientModule,
+    ReactiveFormsModule,
 
     BrowserAnimationsModule
   ],

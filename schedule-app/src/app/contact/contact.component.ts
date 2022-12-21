@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ContactService } from '../contact.service';
 import { Contact } from './contact';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-contact',
@@ -9,18 +10,24 @@ import { Contact } from './contact';
 })
 export class ContactComponent implements OnInit{
 
+  form!: FormGroup;
   constructor(
-    private service: ContactService
+    private service: ContactService,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    const c: Contact = new Contact();
-    c.name = 'Jo';
-    c.email = 'jo@email.com';
-    c.favorite = false;
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', Validators.email]
+    })
+ 
+  }
 
-    this.service.saveContact(c).subscribe( response => {
-      console.log(response);
-    });
+  submit() {
+    console.log(this.form.value)
+  //   this.service.saveContact(c).subscribe( response => {
+  //     console.log(response);
+  //   });
   }
 }
