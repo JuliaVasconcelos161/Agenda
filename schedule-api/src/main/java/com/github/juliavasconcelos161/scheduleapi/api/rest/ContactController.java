@@ -4,6 +4,8 @@ import com.github.juliavasconcelos161.scheduleapi.model.entity.Contact;
 import com.github.juliavasconcelos161.scheduleapi.model.repository.ContactRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,9 +38,13 @@ public class ContactController {
     }
 
     @GetMapping
-    public List<Contact> contactsList()
+    public Page<Contact> contactsList(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "size", defaultValue = "10") Integer pageSize
+    )
     {
-        return repository.findAll();
+        PageRequest pageRequest = PageRequest.of(page, pageSize);
+        return repository.findAll(pageRequest);
     }
 
     @PatchMapping("{id}/favorite")
