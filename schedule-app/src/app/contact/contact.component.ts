@@ -4,6 +4,7 @@ import { Contact } from './contact';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ContactDetailsComponent } from '../contact-details/contact-details.component';
+import { PageEvent } from '@angular/material/paginator';
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -13,7 +14,14 @@ export class ContactComponent implements OnInit{
 
   form!: FormGroup;
   contacts: Contact[] = [];
-  columns = ['picture','id', 'name', 'email', 'favorite']
+  columns = ['picture','id', 'name', 'email', 'favorite'];
+  
+  totalElements?: number = 0;
+  page?: number = 0;
+  size: number = 10;
+  pageSizeOptions: number[] = [10];
+  
+  
   constructor(
     private service: ContactService,
     private fb: FormBuilder,
@@ -23,13 +31,15 @@ export class ContactComponent implements OnInit{
   ngOnInit(): void {
     this.formComponent();
     
-    this.listContacts();
+    this.listContacts(this.page, this.size);
  
   }
 
-  listContacts() {
-    this.service.listContactsService().subscribe(response => {
-      this.contacts = response;
+  listContacts(page:any = "0", size:any = "10") {
+    this.service.listContactsService(page, size).subscribe(response => {
+      this.contacts = response.content || [];
+      this.totalElements = response.totalElements;
+      this.page = response.number;
     })
   }
 
@@ -73,5 +83,10 @@ export class ContactComponent implements OnInit{
       height: '450px',
       data: contact
     })
+  }
+
+  paginate(event: PageEvent) {
+    this.page = event.pageIndex;
+    this.listContacts(this.page, this.size);
   }
 }
