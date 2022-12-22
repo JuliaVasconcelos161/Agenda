@@ -63,7 +63,7 @@
                 <mat-form-field class="full-width">
                     <mat-label>Nome:</mat-label>
                     <br>
-                    <input formControlName="name" matInput placeholder="Digite seu nome"/>
+                    <input formControlName="name" matInput placeholder="Digite seu nome" required="on"/>
                 </mat-form-field>
                 <br>
                 <div *ngIf="this.form.controls['name'].errors">
@@ -75,7 +75,7 @@
                 <mat-form-field class="full-width">
                     <mat-label>Email:</mat-label>
                     <br>
-                    <input formControlName="email" matInput placeholder="Digite seu email"/>
+                    <input formControlName="email" matInput placeholder="Digite seu email" required="on"/>
                 </mat-form-field>
                 <br>
                 <div *ngIf="this.form.controls['email'].errors">
@@ -87,7 +87,7 @@
                     </div>
                 </div>
                 <br>
-                <button  mat-raised-button color="primary">Adicionar</button>
+                <button [disabled]="!form.valid" mat-raised-button color="primary">Adicionar</button>
             </form>
         </mat-card>       
     </mat-tab>

@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ContactDetailsComponent } from '../contact-details/contact-details.component';
 import { PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -25,7 +27,8 @@ export class ContactComponent implements OnInit{
   constructor(
     private service: ContactService,
     private fb: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackbar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -60,8 +63,9 @@ export class ContactComponent implements OnInit{
     const formValues = this.form.value;
     const contact: Contact = new Contact(formValues.name, formValues.email);
     this.service.saveContact(contact).subscribe( response => {
-      let listContacts: Contact[] = [...this.contacts, response];
-      this.contacts = listContacts;
+      this.listContacts();
+      this.snackbar.open('Contato adicionado!', "Sucesso", {duration:2000})
+      this.form.reset();
     });
   }
 

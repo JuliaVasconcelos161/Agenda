@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +44,8 @@ public class ContactController {
             @RequestParam(value = "size", defaultValue = "10") Integer pageSize
     )
     {
-        PageRequest pageRequest = PageRequest.of(page, pageSize);
+        Sort sort = Sort.by(Sort.Direction.ASC, "name");
+        PageRequest pageRequest = PageRequest.of(page, pageSize, sort);
         return repository.findAll(pageRequest);
     }
 
