@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ContactService } from '../contact.service';
 import { Contact } from './contact';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { MatDialog } from '@angular/material/dialog';
+import { ContactDetailsComponent } from '../contact-details/contact-details.component';
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -15,7 +16,8 @@ export class ContactComponent implements OnInit{
   columns = ['picture','id', 'name', 'email', 'favorite']
   constructor(
     private service: ContactService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -63,5 +65,13 @@ export class ContactComponent implements OnInit{
         this.listContacts();
       });
     }
+  }
+
+  visualizeContact(contact: Contact) {
+    this.dialog.open(ContactDetailsComponent, {
+      width:'400px',
+      height: '450px',
+      data: contact
+    })
   }
 }

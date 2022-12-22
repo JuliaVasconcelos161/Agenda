@@ -4,8 +4,11 @@
             <mat-icon>face</mat-icon>
             Contato
         </mat-card-title>
-        <img mat-card-image src="data:image/png;base64,{{ contact.picture }}">
     </mat-card-header>
+    
+    <img class="pic" mat-card-image src="data:image/png;base64,{{ contact.picture }}">
+   
+    
     <mat-card-content>
         <p>
             <strong>{{ contact.name }}</strong> <br>

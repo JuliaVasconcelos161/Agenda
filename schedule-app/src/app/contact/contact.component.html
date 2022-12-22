@@ -14,7 +14,7 @@
                     <th mat-header-cell *matHeaderCellDef></th>
                     <td mat-cell *matCellDef="let contact">
                         <div *ngIf="contact.picture">
-                            <img width="50" height="50" alt="Imagem do contato" src="data:image/png;base64,{{ contact.picture }}">
+                            <img width="50" (click)="visualizeContact(contact)" height="50" alt="Imagem do contato" src="data:image/png;base64,{{ contact.picture }}">
                         </div>
                         <div *ngIf="!contact.picture">
                             <input type="file" name="picture" (change)="uploadPicture($event, contact)">
