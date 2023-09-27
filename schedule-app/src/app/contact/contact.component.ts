@@ -93,4 +93,10 @@ export class ContactComponent implements OnInit{
     this.page = event.pageIndex;
     this.listContacts(this.page, this.size);
   }
+
+  delete(contact:Contact) {
+    this.service.delete(contact).subscribe(response => {
+      this.listContacts();
+    });
+  }
 }
