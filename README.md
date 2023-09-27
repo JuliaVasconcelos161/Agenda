@@ -17,13 +17,14 @@ Projeto feito acompanhando o curso da Udemy "Angular 9 + Spring Boot 2.2: Fullst
 
 - Tela de Criação de Contatos
 
-![pagina-criar-contatos.png](..%2F..%2Fpagina-criar-contatos.png)
+![pagina-criar-contatos.png](pagina-criar-contatos.png)
 
 
 - Tela de Visualização de Contatos
  
-![pagina-lista-contatos.png](..%2F..%2Fpagina-lista-contatos.png)
+![pagina-lista-contatos.png](pagina-lista-contatos.png)
 
 ### Documentação Swagger:
 
-![documentacao-swagger.png](..%2F..%2Fdocumentacao-swagger.png)
+![documentacao-swagger.png](documentacao-swagger.png)
+
